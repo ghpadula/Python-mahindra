@@ -1,24 +1,4 @@
 from dic import *
-def meu_index (lista,elemento):
-    for i in range(len(lista)):
-        if elemento == lista[i]:
-             return i
-    
-
-def maior(lista):
-    maior = lista[0]
-    for i in range(len(lista)):
-        if lista[i] >= maior:
-            maior = lista[i]
-    return maior
-
-
-def menor (lista):
-    menor = lista[0]
-    for i in range(len(lista)):
-        if lista[i] <= menor:
-            menor = lista[i]
-    return menor
 
 def calculo_ntf(equipe):
     percentuais = [0.15, 0.12, 0.09, 0.06, 0.03, 0.0, -0.03, -0.06, -0.09, -0.12, -0.15]
@@ -36,7 +16,6 @@ def forca_escolha(lista,msg, msg_erro = 'Inválido'):
         else:
             print("---------------------")
             print(msg_erro)
-            print(lista)
             
 def sair_continuar(msg,lista):    
     sair = forca_escolha(lista, msg)
@@ -68,10 +47,8 @@ def login(msg, msg_pwd, dic):
         user_login = input(msg + "\n -->")
         user_Pwd = input(msg_pwd + "\n -->")
         if user_login in dic.keys():
-            print("Sucesso") 
-                                    
             if user_Pwd == dic[user_login]:
-                print('Suceesso')
+                print('Suceeso')
                 break
             else: 
                 print('Senha inválida')
@@ -80,13 +57,13 @@ def login(msg, msg_pwd, dic):
             print('Usuário inválido')
     return True
 
-def print_dic(dic , cotacao = ' R$',valor = False,index_value = ''):
+def print_dic(dic , index_value, valor = False):
     if valor: 
         for key in dic.keys():
-            print(f"{key}= {dic[key][0]}- Valor:R${dic[key][1]} ")
+            print(f"{key} = Valor:R${dic[key][1]:.2f} ")
     else:        
         for key in dic.keys():
-            print(f"{key}= {cotacao}{dic[key][index_value]}")
+            print(f"{key} = {dic[key][index_value]}")
     
         
 def numeric(msg, msg_erro="invalido!!"):

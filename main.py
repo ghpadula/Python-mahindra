@@ -1,6 +1,7 @@
 from dic import *
 from func import *
 
+
 opcoes_Inicio = ["1","2","3","4"]
 user = False
 admin = False
@@ -33,19 +34,19 @@ while True:
         admin = False
         user = False
         while True:
-            print(f"Bem vindo ao portal do Usario senhor {user}")
+            print(f"Bem vindo ao portal do Usuário")
             escolha = forca_escolha(['1','2','3','4','5','6'], "Digite:\n [1] para ver os preços de nft de cada Equipe \n [2] Para visualizar a posição das equipes na ultima corrida \n [3] Para comprar nft \n [4] Exibir carrinho \n [5] Para exibir suas NFTs\n [6] Para sair\n -->")
             match escolha:
                 case '1':
                     while True:
-                        print_dic(nfts,'R$',False,1)
-                        if sair_continuar("Digite 'voltar' para voltar ao Menu\n --> ",['voltar']):
+                        print_dic(nfts,1, True)
+                        if sair_continuar("Digite 'voltar' para voltar ao Menu\n --> ",'voltar'):
                             break
 
                 case '2':
                     while True:
-                        print_dic(nfts,'',False,0)
-                        if sair_continuar("Digite 'voltar' para voltar ao Menu\n --> ",['voltar']):
+                        print_dic(nfts,0)
+                        if sair_continuar("Digite 'voltar' para voltar ao Menu\n --> ",'voltar'):
                                 break
 
                 case '3':
@@ -53,14 +54,16 @@ while True:
                         comprar = forca_escolha(["sim","nao"],"Deseja comprar alguma nft? \n -->")
                         if comprar == "nao":
                             break
-                        print_dic(nfts, 1)           
+                        print_dic(nfts, 1, True)
                         nft_Buy = forca_escolha(nfts.keys(),"De qual equipe voce deseja comprar a nft? \n -->")
                         qtd = numeric("Digite a quandidade que deseja comprar \n --> ")
+                        if qtd == 0:
+                            print('A quantidade deve ser maior que 0')
+                            continue
                         carrinho['nft'][nft_Buy] = qtd
                         carrinho['valor_total'] += carrinho['nft'][nft_Buy] * nfts[nft_Buy][1]
-                        print(carrinho['valor_total'])
+                        print(f'valor: {carrinho['valor_total']}:.2f')
                         #print(carrinho)
-                                            
                         if sair_continuar("Digite [sair] para sair e [continuar] para continuar comprando \n -->",["sair","continuar"]):
                             continue
                         else:
@@ -68,10 +71,10 @@ while True:
                     
                 case '4':
                     for key in carrinho['nft'].keys():
-                        print("Voce esta comprando: ")
-                        print(f"{key} = {carrinho['nft'][key]}")
-                    print(f"Valor Total = {carrinho['valor_total']}")
-                    if sair_continuar("Digite sair para sair do carrinho \n -Digite comprar para comprar",["sair","comprar"]):
+                        print("Você esta comprando: ")
+                        print(f"{key} = R${carrinho['nft'][key]:.2f}")
+                    print(f"Valor Total = R${carrinho['valor_total']}")
+                    if sair_continuar("Digite 'sair' para sair do carrinho \n -Digite 'comprar' para comprar\n -->",["sair","comprar"]):
                         for key in carrinho['nft'].keys():
                                 if key in carteira_usuario['nft']:
                                     carteira_usuario['nft'][key] += carrinho['nft'][key]
@@ -79,7 +82,6 @@ while True:
                                     carteira_usuario['nft'][key] = carrinho['nft'][key]
                         limpar_carrinho()
                         print("Compra efetuada com sucesso, seu carrinho foi esvaziado!")
-                        print(carrinho)
                         
                 
                 case '5': 
@@ -126,10 +128,7 @@ while True:
                 case '2':
                     break
 
-#formatar alguns prints e adicionar saida no adm
-    
-#if admin:
-   # print("Logado com adm")    
+
     
     
 
