@@ -8,19 +8,14 @@ admin = False
 
 while True:
     while True:
-        print("Seja bem vindo a TechAdvanced: ")
-        #print("Voce deseja fazer \n -->(1)Login \n -->(2)Cadastrar \n -->(3)Login como administrador \n -->(4)Sair")
+        print("Seja bem vindo a TechAdvanced: ") 
         escolha_inicio = forca_escolha(opcoes_Inicio,"Voce deseja fazer \n -->(1)Login \n -->(2)Cadastrar \n -->(3)Login como administrador \n -->(4)Sair \n -->")
         match escolha_inicio:
             case "1":
                 user = login('Digite seu Usuário', 'Digite sua senha', usuarios)
-                #is_adm = False
                 break
             case '2':
-                newUser = input("Digite o nome de usuario que deseja cadastrar: \n -->")
-                newPwd = input(f"Digite a senha de login do usuario {newUser}\n --> ")
-                usuarios[newUser] = newPwd
-                print("Voce voltara ao inicio, digite 1 para realizar o login \n Obrigado por se cadastrar no TechAdvanced!")
+               cadastro()
             case '3':
                 admin = login('Digite seu Usuário', 'Digite sua senha', adm)
                 break
@@ -40,48 +35,19 @@ while True:
                 case '1':
                     while True:
                         print_dic(nfts,1, True)
-                        if sair_continuar("Digite 'voltar' para voltar ao Menu\n --> ",'voltar'):
+                        if sair_continuar("Digite 'voltar' para voltar ao Menu\n --> ",['voltar']):
                             break
 
                 case '2':
                     while True:
                         print_dic(nfts,0)
-                        if sair_continuar("Digite 'voltar' para voltar ao Menu\n --> ",'voltar'):
+                        if sair_continuar("Digite 'voltar' para voltar ao Menu\n --> ",['voltar']):
                                 break
 
                 case '3':
-                    while True:     
-                        comprar = forca_escolha(["sim","nao"],"Deseja comprar alguma nft? \n -->")
-                        if comprar == "nao":
-                            break
-                        print_dic(nfts, 1, True)
-                        nft_Buy = forca_escolha(nfts.keys(),"De qual equipe voce deseja comprar a nft? \n -->")
-                        qtd = numeric("Digite a quandidade que deseja comprar \n --> ")
-                        if qtd == 0:
-                            print('A quantidade deve ser maior que 0')
-                            continue
-                        carrinho['nft'][nft_Buy] = qtd
-                        carrinho['valor_total'] += carrinho['nft'][nft_Buy] * nfts[nft_Buy][1]
-                        print(f'valor: {carrinho['valor_total']}:.2f')
-                        #print(carrinho)
-                        if sair_continuar("Digite [sair] para sair e [continuar] para continuar comprando \n -->",["sair","continuar"]):
-                            continue
-                        else:
-                            break
-                    
+                    adicionar_carrinho()
                 case '4':
-                    for key in carrinho['nft'].keys():
-                        print("Você esta comprando: ")
-                        print(f"{key} = R${carrinho['nft'][key]:.2f}")
-                    print(f"Valor Total = R${carrinho['valor_total']}")
-                    if sair_continuar("Digite 'sair' para sair do carrinho \n -Digite 'comprar' para comprar\n -->",["sair","comprar"]):
-                        for key in carrinho['nft'].keys():
-                                if key in carteira_usuario['nft']:
-                                    carteira_usuario['nft'][key] += carrinho['nft'][key]
-                                else:
-                                    carteira_usuario['nft'][key] = carrinho['nft'][key]
-                        limpar_carrinho()
-                        print("Compra efetuada com sucesso, seu carrinho foi esvaziado!")
+                    comprar_carrinho()
                         
                 
                 case '5': 
@@ -97,34 +63,12 @@ while True:
         admin = False
         user = False
         while True:
-            print(f"Bem-vindo ao portal do usuário, senhor {user}")
+            print(f"Bem-vindo ao portal da Administração")
             escolha = forca_escolha(['1', '2'], "Digite:\n [1] Alterar posição das equipes na última corrida (Muda automaticamente os preços das NFT)\n [2] Para sair\n --> ")
             
             match escolha:
                 case '1':
-                    alterar = forca_escolha(['sim', 'nao'], "Você deseja trocar as posições das equipes? sim ou nao\n --> ")
-                    if alterar == 'sim':
-                        posicoes_usadas = []
-                        for key in nfts:
-                            while True:
-                                posicao = numeric(f"Digite a posição da equipe {key} (1 a 11): \n -->")
-                                
-                                if posicao in range(1, 12):
-                                    if posicao not in posicoes_usadas:
-                                        posicao_antiga = nfts[key][0]
-                                        posicoes_usadas.append(posicao)
-                                        nfts[key][0] = posicao                                        
-                                        nova_preco = calculo_ntf(key)                                        
-                                        nfts[key][1] = nova_preco 
-                                        print(f"A posição da {key} foi alterada de {posicao_antiga}º para {nfts[key][0]}º e o novo valor é R${nfts[key][1]} ")                                
-                                        
-                                        break
-                                    else:
-                                        print("Essa posição já está ocupada. Tente outra.")
-                                else:
-                                    print("Entrada inválida. Por favor, digite um número entre 1 e 11.")
-                        print_dic(nfts,'',True)
-                        print("Novos valores após a alteração!")
+                    adm_trocar_posicao()
                 case '2':
                     break
 
