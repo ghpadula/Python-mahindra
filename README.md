@@ -1,5 +1,9 @@
 # Descrição do Projeto
-
+## Rodrigo H M Nakata 556417
+## Gabriel Henrique Padula 554907
+## Enzo GaiÃ£o Real 557943
+##  Gustavo Pasquini Lucas 555454
+## Vitor Couto Victorino 554965
 **TechAdvanced** é uma plataforma interativa para a compra e gestão de NFTs (Tokens Não Fungíveis) relacionadas a equipes em competições. O sistema permite que usuários se cadastrem, façam login, comprem NFTs, visualizem suas compras e gerenciem suas carteiras. Além disso, administradores têm a capacidade de alterar as posições das equipes, o que impacta diretamente nos preços das NFTs.
 
 ## Funcionalidades Principais
